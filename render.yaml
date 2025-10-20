@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: capitalization-checker
+    env: python
+    buildCommand: "pip install -r requirements.txt && python geonames_downloader.py"
+    startCommand: "gunicorn app_production:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+    healthCheckPath: /health
+    autoDeploy: true
